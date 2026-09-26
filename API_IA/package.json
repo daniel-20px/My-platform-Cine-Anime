@@ -1,0 +1,25 @@
+{
+  "name": "api_ia",
+  "version": "1.0.0",
+  "description": "Servidor Fullstack unificado",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "build": "cd ../meu-front-anime && npm install && npm run build && mv dist ../API_IA/dist",
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google/genai": "^2.23.0",
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.1",
+    "express": "^5.2.1",
+    "socket.io": "^4.8.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}

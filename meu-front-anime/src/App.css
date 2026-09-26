@@ -1,0 +1,611 @@
+/* ==========================================================================
+   VARIÁVEIS DE DESIGN TECNOLÓGICO (CYBERPUNK / SCI-FI)
+   ========================================================================== */
+:root {
+  --bg-principal: #0a0a12;
+  --bg-card: rgba(16, 16, 28, 0.7);
+  --bg-janela: rgba(10, 10, 18, 0.85);
+  
+  --neon-azul: #00f2fe;
+  --neon-rosa: #ff007f;
+  --neon-verde: #00ff87;
+  
+  --texto-principal: #e2e8f0;
+  --texto-mutado: #64748b;
+  --borda-glow: rgba(0, 242, 254, 0.2);
+  
+  --fonte-tech: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* ==========================================================================
+   ESTRUTURA GERAL DO SITE
+   ========================================================================== */
+body {
+ background-color: var(--bg-principal);
+  color: var(--texto-principal);
+  font-family: var(--fonte-tech);
+  margin: 0;
+  padding: 0;
+  /* CORREÇÃO: Ajustado o rgba do gradiente que continha erro de sintaxe */
+  background-image: 
+    radial-gradient(circle at 20% 30%, rgba(0, 242, 254, 0.05) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(255, 0, 127, 0.05) 0%, transparent 40%);
+  background-attachment: fixed;
+}
+
+.site-container {
+  min-height: 100vh;
+  padding: 40px 20px;
+  box-sizing: border-box;
+}
+
+.conteudo-site {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  letter-spacing: -1px;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, #fff 0%, var(--neon-azul) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 10px;
+}
+
+.perfil-info {
+  background: var(--bg-card);
+  border: 1px solid var(--borda-glow);
+  padding: 15px 20px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 15px;
+  margin: 20px 0 40px 0;
+  backdrop-filter: blur(10px);
+}
+
+.perfil-info input {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(0, 242, 254, 0.4);
+  color: var(--neon-azul);
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-weight: bold;
+  outline: none;
+}
+
+/* ==========================================================================
+   PLAYER PRINCIPAL DE VÍDEO
+   ========================================================================== */
+.container-player-principal {
+  background: #000;
+  border: 2px solid var(--neon-azul);
+  box-shadow: 0 0 25px rgba(0, 242, 254, 0.25);
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 40px;
+  animation: abrirJanela 0.4s ease-out;
+}
+
+.player-header {
+  background: rgba(16, 16, 28, 0.9);
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 242, 254, 0.2);
+}
+
+.player-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: var(--neon-azul);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.btn-fechar-video {
+  background: transparent;
+  border: 1px solid var(--neon-rosa);
+  color: var(--neon-rosa);
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-fechar-video:hover {
+  background: var(--neon-rosa);
+  color: #fff;
+  box-shadow: 0 0 15px var(--neon-rosa);
+}
+
+.video-wrapper {
+  position: relative;
+  padding-bottom: 56.25%; /* Proporção 16:9 */
+  height: 0;
+}
+
+.video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* ==========================================================================
+   GRID DE CARDS (HOME)
+   ========================================================================== */
+.titulo-secao {
+  font-size: 1.8rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border-left: 4px solid var(--neon-rosa);
+  padding-left: 15px;
+  margin-bottom: 25px;
+}
+
+.grid-animes-catalogo {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  width: 100%;
+}
+
+.card-anime-home {
+  background: var(--bg-card);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 14px;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  backdrop-filter: blur(10px);
+}
+
+.card-anime-home:hover {
+  transform: translateY(-8px);
+  border-color: var(--neon-azul);
+  box-shadow: 0 10px 25px rgba(0, 242, 254, 0.15);
+}
+
+/* ==========================================================================
+   CORREÇÃO DO TAMANHO DA IMAGEM NO CSS
+   ========================================================================== */
+.capa-container {
+  position: relative;
+  width: 100%;            
+  height: 180px;           
+  background: #151525;
+  overflow: hidden;
+}
+
+.capa-anime {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;       
+  display: block;  
+        
+}
+
+
+
+
+.overlay-play {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 10, 18, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+  cursor: pointer;
+}
+
+.card-anime-home:hover .overlay-play {
+  opacity: 1;
+}
+
+.icone-play {
+  font-size: 2.5rem;
+  color: var(--neon-azul);
+  text-shadow: 0 0 15px var(--neon-azul);
+  transform: scale(0.8);
+  transition: transform 0.3s;
+}
+
+.card-anime-home:hover .icone-play {
+  transform: scale(1);
+}
+
+.info-anime {
+  padding: 20px;
+}
+
+.info-anime h3 {
+  margin: 0 0 15px 0;
+  font-size: 1.2rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.botoes-card-home {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-assistir-home {
+  flex: 1;
+  background: linear-gradient(135deg, #0072ff 0%, var(--neon-azul) 100%);
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-assistir-home:hover {
+  box-shadow: 0 0 15px var(--neon-azul);
+  filter: brightness(1.1);
+}
+
+.btn-compartilhar-home {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-compartilhar-home:hover {
+  background: rgba(0, 242, 254, 0.1);
+  border-color: var(--neon-azul);
+}
+
+/* ==========================================================================
+   JANELAS FLUTUANTES (IA E CHAT)
+   ========================================================================== */
+.janela-flutuante {
+  position: fixed;
+  bottom: 100px;
+  right: 30px;
+  width: 380px;
+  height: 550px;
+  background: var(--bg-janela);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(20px);
+  z-index: 999;
+  animation: abrirJanela 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.janela-ia {
+  border: 1px solid var(--neon-azul);
+  box-shadow: 0 0 30px rgba(0, 242, 254, 0.15);
+}
+
+.janela-chat {
+  border: 1px solid var(--neon-rosa);
+  box-shadow: 0 0 30px rgba(255, 0, 127, 0.15);
+}
+
+.janela-header {
+  padding: 15px 20px;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.janela-header h3 {
+  margin: 0;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+}
+
+.btn-fechar {
+  background: transparent;
+  border: none;
+  color: var(--texto-mutado);
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.btn-fechar:hover {
+  color: #fff;
+}
+
+.janela-conteudo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   COMPONENTES INTERNOS DA JANELA IA
+   ========================================================================== */
+.form-busca-ia {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.form-busca-ia input {
+  flex: 1;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(0, 242, 254, 0.3);
+  border-radius: 8px;
+  padding: 10px;
+  color: #fff;
+  outline: none;
+}
+
+.form-busca-ia input:focus {
+  border-color: var(--neon-azul);
+  box-shadow: 0 0 10px rgba(0, 242, 254, 0.2);
+}
+
+.form-busca-ia button {
+  background: var(--neon-azul);
+  color: #000;
+  border: none;
+  padding: 0 15px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.lista-recomendacoes-ia {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-right: 5px;
+}
+
+.card-recomendacao-ia {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  padding: 12px;
+}
+
+.card-recomendacao-ia h4 {
+  margin: 0 0 5px 0;
+  color: var(--neon-azul);
+}
+
+.card-recomendacao-ia p {
+  margin: 0 0 12px 0;
+  font-size: 0.85rem;
+  color: #cbd5e1;
+  line-height: 1.4;
+}
+
+.acoes-recomendacao {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-assistir-rec, .btn-compartilhar-rec {
+  flex: 1;
+  padding: 8px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-assistir-rec {
+  background: rgba(0, 242, 254, 0.15);
+  color: var(--neon-azul);
+  border: 1px solid rgba(0, 242, 254, 0.3);
+}
+
+.btn-compartilhar-rec {
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+}
+
+/* ==========================================================================
+   COMPONENTES INTERNOS DO CHAT
+   ========================================================================== */
+.historico-mensagens-chat {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-right: 5px;
+  margin-bottom: 15px;
+}
+
+.mensagem-item {
+  background: rgba(255, 255, 255, 0.04);
+  padding: 10px 12px;
+  border-radius: 10px;
+  max-width: 85%;
+  align-self: flex-start;
+  border-left: 3px solid var(--neon-azul);
+}
+
+.mensagem-item.minha-mensagem {
+  align-self: flex-end;
+  background: rgba(255, 0, 127, 0.1);
+  border-left: none;
+  border-right: 3px solid var(--neon-rosa);
+}
+
+.usuario-nome {
+  font-size: 0.8rem;
+  color: var(--neon-azul);
+  display: block;
+  margin-bottom: 3px;
+}
+
+.mensagem-item.minha-mensagem .usuario-nome {
+  color: var(--neon-rosa);
+  text-align: right;
+}
+
+.usuario-texto {
+  margin: 0;
+  font-size: 0.9rem;
+  word-break: break-word;
+  line-height: 1.4;
+}
+
+.card-compartilhado-no-chat {
+  margin-top: 10px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(0, 242, 254, 0.3);
+  padding: 8px;
+  border-radius: 6px;
+}
+
+.card-compartilhado-no-chat h5 {
+  margin: 0 0 8px 0;
+  font-size: 0.85rem;
+}
+
+.btn-player-chat {
+  width: 100%;
+  background: var(--neon-azul);
+  color: #000;
+  border: none;
+  padding: 5px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.form-enviar-chat {
+  display: flex;
+  gap: 8px;
+}
+
+.form-enviar-chat input {
+  flex: 1;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 0, 127, 0.3);
+  border-radius: 8px;
+  padding: 10px;
+  color: #fff;
+  outline: none;
+}
+
+.form-enviar-chat input:focus {
+  border-color: var(--neon-rosa);
+  box-shadow: 0 0 10px rgba(255, 0, 127, 0.2);
+}
+
+.form-enviar-chat button {
+  background: var(--neon-rosa);
+  color: #fff;
+  border: none;
+  padding: 0 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(255, 0, 127, 0.2);
+}
+
+/* ==========================================================================
+   BOTÕES FLUTUANTES (FIXOS)
+   ========================================================================== */
+.botoes-flutuantes-fixos {
+  position: fixed;
+  bottom: 25px;
+  right: 30px;
+  display: flex;
+  gap: 15px;
+  z-index: 1000;
+}
+
+.btn-flutuante {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  border: none;
+  font-weight: bold;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+}
+
+.btn-call-ia {
+  background: #111;
+  color: var(--neon-azul);
+  border: 1px solid var(--neon-azul);
+}
+
+.btn-call-ia:hover, .btn-call-ia.ativo {
+  background: var(--neon-azul);
+  color: #000;
+  box-shadow: 0 0 20px var(--neon-azul);
+  transform: scale(1.1);
+}
+
+.btn-call-chat {
+  background: #111;
+  color: var(--neon-rosa);
+  border: 1px solid var(--neon-rosa);
+}
+
+.btn-call-chat:hover, .btn-call-chat.ativo {
+  background: var(--neon-rosa);
+  color: #fff;
+  box-shadow: 0 0 20px var(--neon-rosa);
+  transform: scale(1.1);
+}
+
+/* ==========================================================================
+   ANIMAÇÕES E SCROLLBAR
+   ========================================================================== */
+@keyframes abrirJanela {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Customização da Barra de Rolagem Interna das Janelas */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.01);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
