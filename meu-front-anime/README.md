@@ -6,7 +6,7 @@ Uma plataforma moderna e futurista de streaming e interação para entusiastas d
 
 ## 🔗 Links do Projeto
 
-- **Live Demo (Site no Ar):** [CLIQUE AQUI PARA ACESSAR](INSIRA_O_LINK_DA_RENDER_AQUI)
+- **Live Demo (Site no Ar):** [CLIQUE AQUI PARA ACESSAR](https://my-platform-cine-anime.onrender.com)
 - **Repositório Oficial:** [CLIQUE AQUI PARA VER O CÓDIGO](https://github.com/daniel-20px/My-platform-Cine-Anime.git)
 
 ---

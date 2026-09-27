@@ -170,12 +170,12 @@ export default function App() {
 
   const fimDoChatRef = useRef(null);
 
-  // Inicialização e gerenciamento do Socket.io
-  useEffect(() => {
+   useEffect(() => {
+    // Define a URL base que puxa do Render ou cai no localhost se estiver rodando no computador
     const API_URL = import.meta.env.VITE_API_URL || import.meta.env.VITE_CHAT_URL || 'http://localhost:3000';
 
-
-    const novoSocket = io(urlChat, {
+    // CORRIGIDO: Agora o Socket usa a constante correta (API_URL) para se conectar
+    const novoSocket = io(API_URL, {
       transports: ['websocket'],
       autoConnect: true
     });
@@ -260,6 +260,9 @@ export default function App() {
     setAnimeIdNoPlayer(null);
 
     try {
+      // CORRIGIDO: Agora a busca da IA usa a constante flexível em vez de caminhos estáticos
+      const API_URL = import.meta.env.VITE_API_URL || import.meta.env.VITE_CHAT_URL || 'http://localhost:3000';
+      
       const response = await fetch(`${API_URL}/pergunta`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -271,7 +274,6 @@ export default function App() {
       const recomendacoesDaIA = dados.recomendacoes || [];
       const listaComImagensSeguras = [];
 
-      // Loop for...of sequencial substituindo o Promise.all para respeitar a API do Jikan
       for (const anime of recomendacoesDaIA) {
         try {
           if (!anime.mal_id) {
@@ -279,7 +281,6 @@ export default function App() {
             continue;
           }
 
-          // Pequeno delay de 350ms entre cada item recomendado pela IA para evitar o Erro 429
           await new Promise(resolve => setTimeout(resolve, 350));
 
           const resJikan = await fetch(`https://api.jikan.moe/v4/anime/${anime.mal_id}`);
