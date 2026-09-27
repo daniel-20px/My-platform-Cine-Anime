@@ -75,17 +75,14 @@ io.on('connection', (socket) => {
   });
 });
 
-// Servir React
-app.use(
-  express.static(path.join(__dirname, 'dist'))
-);
+// Servir arquivos estáticos do React (Garante o caminho absoluto da pasta dist)
+app.use(express.static(path.resolve(__dirname, 'dist')));
 
 // Fallback do React EXPRESS 5 🚀
 app.get('/*splat', (req, res) => {
-  res.sendFile(
-    path.join(__dirname, 'dist', 'index.html')
-  );
+  res.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
 });
+
 
 
 // Porta
