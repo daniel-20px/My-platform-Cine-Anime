@@ -100,60 +100,60 @@ const animesIniciais = [
     capa: "https://cdn.myanimelist.net/images/anime/6/86733.jpg",
     embed_url: "https://www.youtube-nocookie.com/embed/M2e9w3QJZ9M"
   },
-{
-  mal_id: 28851,
-  nome_do_titulo: "Koe no Katachi",
-  capa: "https://cdn.myanimelist.net/images/anime/1122/96435.jpg",
-  embed_url: "https://www.youtube-nocookie.com/embed/nfK6UgLra7g"
-},
-{
-  mal_id: 23273,
-  nome_do_titulo: "Shigatsu wa Kimi no Uso",
-  capa: "https://cdn.myanimelist.net/images/anime/3/67177.jpg",
-  embed_url: "https://www.youtube-nocookie.com/embed/3b3i8c1bK1I"
-},
-{
-  mal_id: 15039,
-  nome_do_titulo: "Ano Hi Mita Hana no Namae wo Bokutachi wa Mada Shiranai.",
-  capa: "https://cdn.myanimelist.net/images/anime/5/79697.jpg",
-  embed_url: "https://www.youtube-nocookie.com/embed/4HHI9dT4QYw"
-},
-{
-  mal_id: 32281,
-  nome_do_titulo: "Kimi no Na wa.",
-  capa: "https://cdn.myanimelist.net/images/anime/5/87048.jpg",
-  embed_url: "https://www.youtube-nocookie.com/embed/3KR8_igDs1Y"
-},
-{
-  mal_id: 37450,
-  nome_do_titulo: "Seishun Buta Yarou wa Yumemiru Shoujo no Yume wo Minai",
-  capa: "https://cdn.myanimelist.net/images/anime/1613/102179.jpg",
-  embed_url: "https://www.youtube-nocookie.com/embed/2tYj7Q9JZ7I"
-},
-{
-  mal_id: 199,
-  nome_do_titulo: "Sen to Chihiro no Kamikakushi",
-  capa: "https://cdn.myanimelist.net/images/anime/6/79597.jpg",
-  embed_url: "https://www.youtube-nocookie.com/embed/ByXuk9QqQkk"
-},
-{
-  mal_id: 2167,
-  nome_do_titulo: "Clannad",
-  capa: "https://cdn.myanimelist.net/images/anime/1804/95033.jpg",
-  embed_url: "https://www.youtube-nocookie.com/embed/9ZQfVhbdxFw"
-},
-{
-  mal_id: 6746,
-  nome_do_titulo: "Durarara!!",
-  capa: "https://cdn.myanimelist.net/images/anime/10/71772.jpg",
-  embed_url: "https://www.youtube-nocookie.com/embed/v8e2f8j0FfA"
-},
-{
-  mal_id: 31043,
-  nome_do_titulo: "Boku dake ga Inai Machi",
-  capa: "https://cdn.myanimelist.net/images/anime/10/77957.jpg",
-  embed_url: "https://www.youtube-nocookie.com/embed/DwmxEAWjTQQ"
-},
+  {
+    mal_id: 28851,
+    nome_do_titulo: "Koe no Katachi",
+    capa: "https://cdn.myanimelist.net/images/anime/1122/96435.jpg",
+    embed_url: "https://www.youtube-nocookie.com/embed/nfK6UgLra7g"
+  },
+  {
+    mal_id: 23273,
+    nome_do_titulo: "Shigatsu wa Kimi no Uso",
+    capa: "https://cdn.myanimelist.net/images/anime/3/67177.jpg",
+    embed_url: "https://www.youtube-nocookie.com/embed/3b3i8c1bK1I"
+  },
+  {
+    mal_id: 15039,
+    nome_do_titulo: "Ano Hi Mita Hana no Namae wo Bokutachi wa Mada Shiranai.",
+    capa: "https://cdn.myanimelist.net/images/anime/5/79697.jpg",
+    embed_url: "https://www.youtube-nocookie.com/embed/4HHI9dT4QYw"
+  },
+  {
+    mal_id: 32281,
+    nome_do_titulo: "Kimi no Na wa.",
+    capa: "https://cdn.myanimelist.net/images/anime/5/87048.jpg",
+    embed_url: "https://www.youtube-nocookie.com/embed/3KR8_igDs1Y"
+  },
+  {
+    mal_id: 37450,
+    nome_do_titulo: "Seishun Buta Yarou wa Yumemiru Shoujo no Yume wo Minai",
+    capa: "https://cdn.myanimelist.net/images/anime/1613/102179.jpg",
+    embed_url: "https://www.youtube-nocookie.com/embed/2tYj7Q9JZ7I"
+  },
+  {
+    mal_id: 199,
+    nome_do_titulo: "Sen to Chihiro no Kamikakushi",
+    capa: "https://cdn.myanimelist.net/images/anime/6/79597.jpg",
+    embed_url: "https://www.youtube-nocookie.com/embed/ByXuk9QqQkk"
+  },
+  {
+    mal_id: 2167,
+    nome_do_titulo: "Clannad",
+    capa: "https://cdn.myanimelist.net/images/anime/1804/95033.jpg",
+    embed_url: "https://www.youtube-nocookie.com/embed/9ZQfVhbdxFw"
+  },
+  {
+    mal_id: 6746,
+    nome_do_titulo: "Durarara!!",
+    capa: "https://cdn.myanimelist.net/images/anime/10/71772.jpg",
+    embed_url: "https://www.youtube-nocookie.com/embed/v8e2f8j0FfA"
+  },
+  {
+    mal_id: 31043,
+    nome_do_titulo: "Boku dake ga Inai Machi",
+    capa: "https://cdn.myanimelist.net/images/anime/10/77957.jpg",
+    embed_url: "https://www.youtube-nocookie.com/embed/DwmxEAWjTQQ"
+  },
 ];
 
 export default function App() {
@@ -172,7 +172,8 @@ export default function App() {
 
   // Inicialização e gerenciamento do Socket.io
   useEffect(() => {
-    const urlChat = import.meta.env.VITE_CHAT_URL || 'http://localhost:3000';
+    const API_URL = import.meta.env.VITE_API_URL || import.meta.env.VITE_CHAT_URL || 'http://localhost:3000';
+
 
     const novoSocket = io(urlChat, {
       transports: ['websocket'],
@@ -259,11 +260,12 @@ export default function App() {
     setAnimeIdNoPlayer(null);
 
     try {
-      const response = await fetch('http://localhost:3000/pergunta', {
+      const response = await fetch(`${API_URL}/pergunta`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ pergunta: perguntaIA }),
       });
+
       const dados = await response.json();
 
       const recomendacoesDaIA = dados.recomendacoes || [];
