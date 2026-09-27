@@ -169,18 +169,18 @@ export default function App() {
   const [chatAberto, setChatAberto] = useState(false);
 
   const fimDoChatRef = useRef(null);
+  useEffect(() => {
 
-   useEffect(() => {
-    // Define a URL base que puxa do Render ou cai no localhost se estiver rodando no computador
-    const API_URL = import.meta.env.VITE_API_URL || import.meta.env.VITE_CHAT_URL || 'http://localhost:3000';
+    const API_URL = window.location.origin;
 
-    // CORRIGIDO: Agora o Socket usa a constante correta (API_URL) para se conectar
+   
     const novoSocket = io(API_URL, {
       transports: ['websocket'],
       autoConnect: true
     });
 
     setSocket(novoSocket);
+  
 
     novoSocket.on('connect', () => {
       novoSocket.emit('welcome', { name: nomeUsuario });
@@ -250,8 +250,8 @@ export default function App() {
     }
   };
 
-  // 2. Busca IA Otimizada: processa as recomendações em fila com delay controlado para garantir todas as imagens
-  const lidarBuscaIA = async (e) => {
+
+   const lidarBuscaIA = async (e) => {
     e.preventDefault();
     if (!perguntaIA.trim()) return;
 
@@ -260,14 +260,15 @@ export default function App() {
     setAnimeIdNoPlayer(null);
 
     try {
-      // CORRIGIDO: Agora a busca da IA usa a constante flexível em vez de caminhos estáticos
-      const API_URL = import.meta.env.VITE_API_URL || import.meta.env.VITE_CHAT_URL || 'http://localhost:3000';
+      
+      const API_URL = window.location.origin;
       
       const response = await fetch(`${API_URL}/pergunta`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ pergunta: perguntaIA }),
       });
+      
 
       const dados = await response.json();
 

@@ -28,12 +28,13 @@ const server = http.createServer(app);
 // Socket.io
 const io = new Server(server, {
   cors: {
-    origin: '*',
+    origin: true, 
     methods: ['GET', 'POST'],
-     credentials: true,
+    credentials: true,
   },
-  transports: ['websocket']
+  transports: ['polling', 'websocket'] 
 });
+
 
 // Rota da API
 app.post('/pergunta', perguntaRefletion);
