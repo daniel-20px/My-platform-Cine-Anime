@@ -1,32 +1,23 @@
-/* ==========================================================================
-   VARIÁVEIS DE DESIGN TECNOLÓGICO (CYBERPUNK / SCI-FI)
-   ========================================================================== */
 :root {
   --bg-principal: #0a0a12;
   --bg-card: rgba(16, 16, 28, 0.7);
   --bg-janela: rgba(10, 10, 18, 0.85);
-  
   --neon-azul: #00f2fe;
   --neon-rosa: #ff007f;
   --neon-verde: #00ff87;
-  
   --texto-principal: #e2e8f0;
   --texto-mutado: #64748b;
   --borda-glow: rgba(0, 242, 254, 0.2);
-  
   --fonte-tech: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 
-/* ==========================================================================
-   ESTRUTURA GERAL DO SITE
-   ========================================================================== */
+/* Define as cores e o estilo geral da página. */
 body {
  background-color: var(--bg-principal);
   color: var(--texto-principal);
   font-family: var(--fonte-tech);
   margin: 0;
   padding: 0;
-  /* CORREÇÃO: Ajustado o rgba do gradiente que continha erro de sintaxe */
   background-image: 
     radial-gradient(circle at 20% 30%, rgba(0, 242, 254, 0.05) 0%, transparent 40%),
     radial-gradient(circle at 80% 70%, rgba(255, 0, 127, 0.05) 0%, transparent 40%);
@@ -35,7 +26,7 @@ body {
 
 .site-container {
   min-height: 100vh;
-  padding: 40px 20px;
+  padding: 20px 40px;
   box-sizing: border-box;
 }
 
@@ -44,6 +35,7 @@ body {
   margin: 0 auto;
 }
 
+/* Define o destaque visual do título principal. */
 h1 {
   font-size: 2.5rem;
   font-weight: 800;
@@ -55,6 +47,7 @@ h1 {
   margin-bottom: 10px;
 }
 
+/* Organiza as informações do perfil do usuário. */
 .perfil-info {
   background: var(--bg-card);
   border: 1px solid var(--borda-glow);
@@ -77,9 +70,7 @@ h1 {
   outline: none;
 }
 
-/* ==========================================================================
-   PLAYER PRINCIPAL DE VÍDEO
-   ========================================================================== */
+/* Define o visual do player principal. */
 .container-player-principal {
   background: #000;
   border: 2px solid var(--neon-azul);
@@ -125,7 +116,7 @@ h1 {
 
 .video-wrapper {
   position: relative;
-  padding-bottom: 56.25%; /* Proporção 16:9 */
+  padding-bottom: 56.25%; /* Mantém a proporção 16:9. */
   height: 0;
 }
 
@@ -137,9 +128,7 @@ h1 {
   height: 100%;
 }
 
-/* ==========================================================================
-   GRID DE CARDS (HOME)
-   ========================================================================== */
+/* Organiza os animes em uma grade responsiva. */
 .titulo-secao {
   font-size: 1.8rem;
   text-transform: uppercase;
@@ -155,7 +144,31 @@ h1 {
   gap: 20px;
   width: 100%;
 }
-
+@media (max-width: 720px){
+.grid-animes-catalogo{
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+}
+  h1 {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+p {
+  font-size: 0.9rem;
+}
+label {
+  font-size: 0.8rem;
+}
+.titulo-secao {
+  font-size: 1.5rem;
+}
+.perfil-info input {
+  width: 70%;
+}
+.perfil-info {
+  padding: 10px 15px;
+  border-radius: 12px;
+  height: 5vh;
+}
 .card-anime-home {
   background: var(--bg-card);
   border: 1px solid rgba(255, 255, 255, 0.05);
@@ -164,16 +177,16 @@ h1 {
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   backdrop-filter: blur(10px);
 }
+}
 
+/* Define o estilo base dos cards de anime. */
 .card-anime-home:hover {
   transform: translateY(-8px);
   border-color: var(--neon-azul);
   box-shadow: 0 10px 25px rgba(0, 242, 254, 0.15);
 }
 
-/* ==========================================================================
-   CORREÇÃO DO TAMANHO DA IMAGEM NO CSS
-   ========================================================================== */
+/* Define o espaço reservado para a capa. */
 .capa-container {
   position: relative;
   width: 100%;            
@@ -187,11 +200,7 @@ h1 {
   height: 100%;
   object-fit: cover;       
   display: block;  
-        
 }
-
-
-
 
 .overlay-play {
   position: absolute;
@@ -224,6 +233,7 @@ h1 {
   transform: scale(1);
 }
 
+/* Organiza as informações exibidas no card. */
 .info-anime {
   padding: 20px;
 }
@@ -273,9 +283,7 @@ h1 {
   border-color: var(--neon-azul);
 }
 
-/* ==========================================================================
-   JANELAS FLUTUANTES (IA E CHAT)
-   ========================================================================== */
+/* Define a estrutura das janelas da IA e do chat. */
 .janela-flutuante {
   position: fixed;
   bottom: 100px;
@@ -302,7 +310,6 @@ h1 {
   border: 1px solid var(--neon-rosa);
   box-shadow: 0 0 30px rgba(255, 0, 127, 0.15);
 }
-
 .janela-header {
   padding: 15px 20px;
   background: rgba(0, 0, 0, 0.4);
@@ -318,6 +325,7 @@ h1 {
   letter-spacing: 0.5px;
 }
 
+/* Estiliza o botão de fechar a janela. */
 .btn-fechar {
   background: transparent;
   border: none;
@@ -339,9 +347,7 @@ h1 {
   overflow: hidden;
 }
 
-/* ==========================================================================
-   COMPONENTES INTERNOS DA JANELA IA
-   ========================================================================== */
+/* Organiza o campo de busca e o botão da IA. */
 .form-busca-ia {
   display: flex;
   gap: 8px;
@@ -373,6 +379,7 @@ h1 {
   cursor: pointer;
 }
 
+/* Permite rolar a lista de recomendações. */
 .lista-recomendacoes-ia {
   flex: 1;
   overflow-y: auto;
@@ -382,6 +389,7 @@ h1 {
   padding-right: 5px;
 }
 
+/* Define o visual dos cards de recomendação. */
 .card-recomendacao-ia {
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.05);
@@ -401,6 +409,7 @@ h1 {
   line-height: 1.4;
 }
 
+/* Alinha os botões de cada recomendação. */
 .acoes-recomendacao {
   display: flex;
   gap: 8px;
@@ -427,9 +436,7 @@ h1 {
   color: #fff;
 }
 
-/* ==========================================================================
-   COMPONENTES INTERNOS DO CHAT
-   ========================================================================== */
+/* Organiza o histórico de mensagens do chat. */
 .historico-mensagens-chat {
   flex: 1;
   overflow-y: auto;
@@ -440,6 +447,7 @@ h1 {
   margin-bottom: 15px;
 }
 
+/* Estiliza as mensagens recebidas. */
 .mensagem-item {
   background: rgba(255, 255, 255, 0.04);
   padding: 10px 12px;
@@ -449,6 +457,7 @@ h1 {
   border-left: 3px solid var(--neon-azul);
 }
 
+/* Diferencia as mensagens enviadas pelo próprio usuário. */
 .mensagem-item.minha-mensagem {
   align-self: flex-end;
   background: rgba(255, 0, 127, 0.1);
@@ -475,6 +484,7 @@ h1 {
   line-height: 1.4;
 }
 
+/* Destaca animes compartilhados nas mensagens. */
 .card-compartilhado-no-chat {
   margin-top: 10px;
   background: rgba(0, 0, 0, 0.4);
@@ -500,6 +510,7 @@ h1 {
   cursor: pointer;
 }
 
+/* Alinha o campo de mensagem e o botão de envio. */
 .form-enviar-chat {
   display: flex;
   gap: 8px;
@@ -531,9 +542,7 @@ h1 {
   box-shadow: 0 0 10px rgba(255, 0, 127, 0.2);
 }
 
-/* ==========================================================================
-   BOTÕES FLUTUANTES (FIXOS)
-   ========================================================================== */
+/* Mantém os botões de acesso fixos no canto da tela. */
 .botoes-flutuantes-fixos {
   position: fixed;
   bottom: 25px;
@@ -555,6 +564,7 @@ h1 {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
 }
 
+/* Aplica o destaque visual ao botão da IA. */
 .btn-call-ia {
   background: #111;
   color: var(--neon-azul);
@@ -568,6 +578,7 @@ h1 {
   transform: scale(1.1);
 }
 
+/* Aplica o destaque visual ao botão do chat. */
 .btn-call-chat {
   background: #111;
   color: var(--neon-rosa);
@@ -581,31 +592,33 @@ h1 {
   transform: scale(1.1);
 }
 
-/* ==========================================================================
-   ANIMAÇÕES E SCROLLBAR
-   ========================================================================== */
+/* Anima a abertura das janelas. */
 @keyframes abrirJanela {
   from {
     opacity: 0;
     transform: translateY(30px) scale(0.95);
   }
+
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
 }
 
-/* Customização da Barra de Rolagem Interna das Janelas */
+/* Personaliza a barra de rolagem. */
 ::-webkit-scrollbar {
   width: 6px;
 }
+
 ::-webkit-scrollbar-track {
   background: rgba(255, 255, 255, 0.01);
 }
+
 ::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.1);
   border-radius: 10px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.2);
 }

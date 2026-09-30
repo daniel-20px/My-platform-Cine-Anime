@@ -1,0 +1,10 @@
+{
+  "name": "my-platform-cine-anime-root",
+  "version": "1.0.0",
+  "scripts": {
+    "install-all": "npm install --prefix API_IA && npm install --prefix meu-front-anime",
+    "build-front": "npm run build --prefix meu-front-anime",
+    "build": "npm run install-all && npm run build-front",
+    "start": "node API_IA/server.js"
+  }
+}

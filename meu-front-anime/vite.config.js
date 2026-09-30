@@ -1,10 +1,16 @@
+
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path'
+import { fileURLToPath } from 'url'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 export default defineConfig({
   plugins: [react()],
-  base: './', // 🚀 ADICIONE ESTA LINHA: Garante que os arquivos sejam achados na nuvem
+  base: '/',
+  // 💡 Removemos o bloco 'server: { proxy: ... }' para limpar o erro ECONNABORTED
   build: {
     outDir: path.resolve(__dirname, '../API_IA/dist'),
     emptyOutDir: true,
