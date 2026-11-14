@@ -1,6 +1,3 @@
-
-
-
 // Cada item possui ID da Jikan/MAL, nome, capa e trailer.
 const animesIniciais = [
   {

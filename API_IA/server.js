@@ -2,61 +2,66 @@ import express from 'express';
 import http from 'http';
 import { Server } from 'socket.io';
 import cors from 'cors';
+import rateLimit from 'express-rate-limit';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
 import perguntaRefletion from './controllers/motivation.controller.js';
 
-// Carrega as variáveis do arquivo .env.
+
 dotenv.config();
 
 const app = express();
 
-// Aceita o localhost em desenvolvimento e qualquer origem em produção (Render)
-const allowedOrigins = ['http://localhost:5173', 'http://127.0.0.1:5173'];
-app.use(cors({
+// Configura o CORS para aceitar
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://127.0.0.1:5173',
+  process.env.FRONTEND_URL 
+].filter(Boolean);
+
+const corsOptions = {
   origin: (origin, callback) => {
-    // Se não houver origem ou se estiver na lista de permitidos ou em produção
-    if (!origin || allowedOrigins.includes(origin) || process.env.NODE_ENV === 'production') {
+    if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
       callback(new Error('Não permitido pelo CORS'));
     }
   },
-  credentials: true,
-}));
+  methods: ['GET', 'POST'],
+};
 
-// Permite receber dados em formato JSON.
-app.use(express.json());
+app.use(cors(corsOptions));
 
-// Converte o caminho do módulo para um caminho de arquivo.
+// Limita o tamanho do JSON recebido 
+app.use(express.json({ limit: '10kb' }));
+
+// Protege a rota da IA contra abuso
+const iaLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 15,
+  message: { error: 'Muitas perguntas seguidas. Tente novamente em alguns minutos.' },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-//Cria o servidor HTTP usado pelo Express
+// Cria o servidor HTTP 
 const server = http.createServer(app);
 
-// No seu server.js, ajuste a criação do io:
+// Configura o Socket.IO
 const io = new Server(server, {
-  cors: {
-    origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin) || process.env.NODE_ENV === 'production') {
-        callback(null, true);
-      } else {
-        callback(new Error('Não permitido pelo CORS'));
-      }
-    },
-    methods: ['GET', 'POST'],
-    credentials: true,
-  },
+  cors: corsOptions,
   transports: ['websocket', 'polling'],
-  //ADICIONE ESSAS DUAS LINHAS AQUI EMBAIXO:
-  pingInterval: 2000, 
-  pingTimeout: 2000,  
+  pingInterval: 2000,
+  pingTimeout: 2000,
 });
 
-// Define a rota responsável pelas perguntas da IA.
-app.post('/pergunta', perguntaRefletion);
+// Define a rota responsável pelas perguntas da IA c
+app.post('/pergunta', iaLimiter, perguntaRefletion);
 
 // Guarda temporariamente os usuários conectados.
 let users = [];
@@ -66,42 +71,54 @@ io.on('connection', (socket) => {
   users.push(socket.id);
   console.log(`Usuários conectados: ${users.length}`);
 
-  // Avisa no chat quando um usuário entra.
+
   socket.on('welcome', (msg) => {
+    if (!msg || typeof msg.name !== 'string') return;
+    const safeName = msg.name.trim().slice(0, 30) || 'Anônimo';
+
     io.emit('chat:sendmessage', {
       name: 'Sistema 🤖',
-      message: `${msg.name} entrou no chat!`,
+      message: `${safeName} entrou no chat!`,
       senderId: 'sistema',
       animeSharing: null
     });
   });
 
-  // Envia as mensagens para todos os usuários.
+  // Envia as mensagens para todos os usuários
   socket.on('chat:message', (msg) => {
+    if (!msg || typeof msg.message !== 'string') return;
+    
+    const safeMessage = msg.message.trim().slice(0, 500);
+    if (!safeMessage && !msg.animeSharing) return;
+
+    const safeName = typeof msg.name === 'string' 
+      ? msg.name.trim().slice(0, 30) 
+      : 'Anônimo';
+
     io.emit('chat:sendmessage', {
-      name: msg.name,
-      message: msg.message,
+      name: safeName,
+      message: safeMessage,
       senderId: socket.id,
       animeSharing: msg.animeSharing || null
     });
   });
 
-  // Remove o usuário quando ele se desconecta.
+  // Remove o usuário 
   socket.on('disconnect', () => {
     users = users.filter(userID => userID !== socket.id);
     console.log(`Usuário desconectado. Restam: ${users.length}`);
   });
 });
 
-// Disponibiliza os arquivos compilados do React.
+// Disponibiliza os arquivos compilados 
 app.use(express.static(path.resolve(__dirname, 'dist')));
 
-//  FORMATO COMPATÍVEL COM EXPRESS 5: Entrega o React sem crashar
+
 app.get(/.*/, (req, res) => {
   res.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
 });
 
-// Define a porta usada pelo servidor.
+// Define a porta usada pelo servidor
 const PORT = process.env.PORT || 3000;
 
 // Inicia o servidor.

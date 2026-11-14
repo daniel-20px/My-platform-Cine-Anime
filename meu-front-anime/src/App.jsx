@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { animesIniciais } from './services/catalog';
 // Seus serviços externos 
-import { buscarTrailerJikan, buscarRecomendacoesIA } from './services/animeApi'; 
+import { buscarTrailerJikan, buscarRecomendacoesIA } from './services/animeApi';
 // Seus componentes isolados 
 import PlayerTrailer from './components/PlayerTrailer';
 import CardAnime from './components/CardAnime';
@@ -9,18 +9,16 @@ import JanelaIA from './components/JanelaIA';
 import JanelaChat from './components/JanelaChat';
 import { socket } from './services/socket';
 
-
-
 import './App.css';
 
 
 
 
 export default function App() {
- // 📦 Seus states (useState) declarados aqui antes das funções:
+  // 📦 Seus states (useState) declarados aqui antes das funções:
   const [nomeUsuario, setNomeUsuario] = useState('Visitante');
   const [animeIdNoPlayer, setAnimeIdNoPlayer] = useState(null);
-  
+
   const [iaAberta, setIaAberta] = useState(false);
   const [perguntaIA, setPerguntaIA] = useState('');
   const [iaCarregando, setIaCarregando] = useState(false);
@@ -29,28 +27,28 @@ export default function App() {
   const [chatAberto, setChatAberto] = useState(false);
   const [mensagemChat, setMensagemChat] = useState('');
   const [historicoChat, setHistoricoChat] = useState([]); // 👈 Seu estado real é este!
-  
+ 
 
   const fimDoChatRef = useRef(null);
 
-useEffect(() => {
-  // 🔌 Força a conexão manual assim que o componente entra na tela
-  console.log("🔌 Solicitando conexão com o servidor Socket.io...");
-  socket.connect();
+  useEffect(() => {
+    // 🔌 Força a conexão manual assim que o componente entra na tela
+    console.log("🔌 Solicitando conexão com o servidor Socket.io...");
+    socket.connect();
 
-  // 🎧 Escuta as mensagens do servidor e joga no seu estado real (historicoChat)
-  socket.on('chat:sendmessage', (novaMensagem) => {
-    console.log("📩 Nova mensagem recebida do servidor:", novaMensagem);
-    setHistoricoChat((historicoAtual) => [...historicoAtual, novaMensagem]);
-  });
+    // 🎧 Escuta as mensagens do servidor e joga no seu estado real (historicoChat)
+    socket.on('chat:sendmessage', (novaMensagem) => {
+      console.log("📩 Nova mensagem recebida do servidor:", novaMensagem);
+      setHistoricoChat((historicoAtual) => [...historicoAtual, novaMensagem]);
+    });
 
-  // Desliga tudo quando você atualizar a página ou fechar o app
-  return () => {
-    console.log("❌ Desconectando e limpando ouvintes antigos...");
-    socket.off('chat:sendmessage');
-    socket.disconnect(); 
-  };
-}, []); 
+    // Desliga tudo quando você atualizar a página ou fechar o app
+    return () => {
+      console.log("❌ Desconectando e limpando ouvintes antigos...");
+      socket.off('chat:sendmessage');
+      socket.disconnect();
+    };
+  }, []);
 
   // 📜 Rola a tela automaticamente para o fim do chat quando chegar mensagem nova
   useEffect(() => {
@@ -68,7 +66,7 @@ useEffect(() => {
   const salvarNomeNoServidor = () => {
     if (!nomeUsuario.trim()) return;
     console.log("Nome salvo no servidor:", nomeUsuario);
-    
+
     // 🚀 Dispara o evento 'welcome' que o seu backend espera receber
     socket.emit('welcome', { name: nomeUsuario });
   };
@@ -101,7 +99,7 @@ useEffect(() => {
     });
 
     // ✅ Limpa o input de texto do chat após enviar
-    setMensagemChat(''); 
+    setMensagemChat('');
   };
 
   // Abre o trailer usando o embed existente ou buscando-o na Jikan.
@@ -159,10 +157,9 @@ useEffect(() => {
   return (
     <div className="site-container">
       <div className="conteudo-site">
-        <h1>Bem-vindo à Minha Plataforma de Cine-Anime🎬</h1>
+        <h1>Bem-vindo à Cine-Anime🎬</h1>
         <p>Navegue pelo catálogo. Se precisar de uma indicação inteligente ou quiser interagir na sala global, use os botões flutuantes no canto inferior ID do player.</p>
         <p>Daniel-20px</p>
-
         <div className="perfil-info">
           <label>Seu apelido aqui: </label>
           <input
@@ -176,9 +173,9 @@ useEffect(() => {
         </div>
 
         {/* 🎬 PLAYER ISOLADO */}
-        <PlayerTrailer 
-          urlVideo={animeIdNoPlayer} 
-          onFechar={() => setAnimeIdNoPlayer(null)} 
+        <PlayerTrailer
+          urlVideo={animeIdNoPlayer}
+          onFechar={() => setAnimeIdNoPlayer(null)}
         />
 
         <h2 className="titulo-secao">🔥 Assista Agora</h2>
@@ -186,7 +183,7 @@ useEffect(() => {
         {/* 🎴 GRID DE CARDS UTILIZANDO O COMPONENTE SEPARADO */}
         <div className="grid-animes-catalogo">
           {animesIniciais.map((anime) => (
-            <CardAnime 
+            <CardAnime
               key={anime.mal_id}
               anime={anime}
               onAssistir={assistirTrailerDinamico}
@@ -196,7 +193,7 @@ useEffect(() => {
         </div>
 
         {/* 🤖 JANELA DA IA ISOLADA */}
-        <JanelaIA 
+        <JanelaIA
           iaAberta={iaAberta}
           onFechar={() => setIaAberta(false)}
           onBuscarIA={lidarBuscaIA}
@@ -209,7 +206,7 @@ useEffect(() => {
         />
 
         {/* 💬 JANELA DO CHAT ISOLADA */}
-        <JanelaChat 
+        <JanelaChat
           chatAberto={chatAberto}
           onFechar={() => setChatAberto(false)}
           historicoChat={historicoChat}
@@ -223,22 +220,22 @@ useEffect(() => {
 
         {/* 🚀 BOTÕES FLUTUANTES CONTROLANDO AS JANELAS */}
         <div className="botoes-flutuantes-fixos">
-          <button 
-            onClick={() => { setIaAberta(!iaAberta); setChatAberto(false); }} 
+          <button
+            onClick={() => { setIaAberta(!iaAberta); setChatAberto(false); }}
             className={`btn-flutuante btn-call-ia ${iaAberta ? 'ativo' : ''}`}
           >
             🤖 IA
           </button>
 
-          <button 
-            onClick={() => { setChatAberto(!chatAberto); setIaAberta(false); }} 
+          <button
+            onClick={() => { setChatAberto(!chatAberto); setIaAberta(false); }}
             className={`btn-flutuante btn-call-chat ${chatAberto ? 'ativo' : ''}`}
           >
             💬 Chat
           </button>
         </div>
 
-      </div> 
-    </div> 
+      </div>
+    </div>
   );
 }
