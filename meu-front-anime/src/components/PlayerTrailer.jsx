@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default function PlayerTrailer({ urlVideo, onFechar }) {
-  // Se não houver vídeo selecionado, não renderiza nada
+
   if (!urlVideo) return null;
 
   return (

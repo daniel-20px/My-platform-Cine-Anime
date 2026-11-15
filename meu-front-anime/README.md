@@ -1,38 +1,60 @@
 # 🎬 Cine-Filme Anime Streaming & AI Hub
 
-Uma plataforma moderna e futurista de streaming e interação para entusiastas de animes. O projeto combina o consumo de dados em tempo real de catálogos globais com um ecossistema de **Inteligência Artificial (LLM)** e comunicação bi-direcional em tempo real.
+Uma plataforma moderna e futurista de streaming e interação para entusiastas de animes. O projeto combina o consumo de dados em tempo real de catálogos globais com um ecossistema de **Inteligência Artificial (LLM)**, proteção de API e comunicação bidirecional em tempo real.
 
 ---
 
 ## 🔗 Links do Projeto
 
 - **Live Demo (Site no Ar):** [CLIQUE AQUI PARA ACESSAR](https://my-platform-cine-anime.onrender.com)
-- **Repositório Oficial:** [CLIQUE AQUI PARA VER O CÓDIGO](https://github.com/daniel-20px/My-platform-Cine-Anime.git)
+
+- **Repositório Oficial:** [CLIQUE AQUI PARA VER O CÓDIGO](https://github.com/daniel-20px/My-platform-Cine-Anime)
 
 ---
 
-## 🚀 Diferenciais Técnicos & Arquitetura (O que ganha destaque)
+## 🤝 Metodologia de Desenvolvimento (Humano + IA)
 
-Este projeto foi construído utilizando conceitos modernos de engenharia de software e integração de IA generativa no ecossistema JavaScript:
+Este projeto foi desenvolvido com **apoio de Inteligência Artificial como ferramenta de produtividade e pair programming**. Toda a arquitetura, regras de negócio, integração, estruturação de componentes e revisão de código foram conduzidas e implementadas por mim, utilizando a IA de forma estratégica para acelerar entregas, depurar problemas complexos e refinar boas práticas.
 
-- **Monorepo Otimizado para a Render (Sistemas Baseados em Linux):** O projeto utiliza uma estrutura de subdiretórios integrada. O script de build faz a ponte entre as pastas, instala as dependências do React, compila os arquivos de forma estática e move o resultado final para o servidor Express utilizando comandos multiplataforma (`mv`).
-- **Recomendador Inteligente com Gemini 3.5 Flash:** Integração direta com o SDK `@google/genai`. O sistema interpreta o contexto da linguagem natural da pergunta do usuário e devolve uma recomendação precisa baseada estritamente no catálogo filtrado.
-- **Engenharia de Prompt (Structural JSON Output):** Aplicação de instruções de sistema estruturadas para forçar o modelo de IA a responder estritamente em formato JSON limpo, sem blocos markdown, garantindo a integridade da tipagem no recebimento do backend.
-- **Mecanismo Double-Layer de Resiliência (Smart Fallbacks):** O backend conta com um mecanismo inteligente de interceptação de erros (`try/catch`). Caso o modelo de IA ou a API do Jikan sofram oscilações (como erros de limite de requisições `429` ou indisponibilidade `503`), o sistema ativa um catálogo local robusto de 16 títulos ou faz filtragem por palavras-chave por categorias (**Romance, Sci-Fi, Comédia ou Ação**). Isso impede que a aplicação trave em loops ou telas pretas.
-- **Sala de Chat Global Otimizada (WebSockets):** Comunicação bidirecional e instantânea gerenciada por `Socket.io`. O fluxo de efeitos do React foi travado estrategicamente para isolar a conexão, resolvendo o bug crítico de criação de "usuários duplicados/fantasmas" no servidor enquanto o usuário digita seu apelido.
+---
+
+## 🚀 Diferenciais Técnicos, Segurança & Arquitetura
+
+Este projeto foi construído utilizando conceitos modernos de engenharia de software, segurança de APIs e integração de IA generativa no ecossistema JavaScript:
+
+### 🔒 Segurança e Performance no Backend
+- **Política de CORS Restrita:** Configuração explícita de origens permitidas no Express, substituindo o acesso aberto anterior para proteger a API contra requisições não autorizadas de domínios externos.
+- **Proteção contra Abuso (Rate Limiting):** Implementação de limitador de requisições por IP/usuário, bloqueando automaticamente tráfego excessivo caso ultrapasse o limite de **100 requisições por minuto**. Isso previne ataques de força bruta, spam e estouro de cota da API de IA.
+- **Mecanismo Double-Layer de Resiliência (Smart Fallbacks):** O backend conta com interceptação de erros (`try/catch`). Caso o modelo de IA ou a API do Jikan sofram oscilações (como limites de requisições `429` ou indisponibilidade `503`), o sistema ativa um catálogo local de 16 títulos ou filtra por palavras-chave (**Romance, Sci-Fi, Comédia ou Ação**), evitando travamentos.
+
+### 🧠 Inteligência Artificial & Real-Time
+- **Recomendador Inteligente com Google Gemini:** Integração direta com o SDK `@google/genai`. O sistema interpreta o contexto em linguagem natural da pergunta do usuário e devolve uma recomendação precisa baseada no catálogo filtrado.
+- **Engenharia de Prompt (Structured JSON Output):** Instruções de sistema estruturadas que forçam o modelo a responder em formato JSON limpo, sem blocos markdown, garantindo integridade na tipagem recebida pelo backend.
+- **Sala de Chat Global Otimizada (WebSockets):** Comunicação bidirecional instantânea via `Socket.io`. O ciclo de vida (`useEffect`) do React foi isolado estrategicamente para manter a conexão estável, resolvendo a criação de "usuários fantasmas" enquanto o usuário digita seu apelido.
+
+### 🎨 Interface, Mobile & Infraestrutura
+- **Responsividade Dedicada para Mobile:** Layout adaptado especificamente para telas pequenas (smartphones), garantindo navegação fluida, ajuste proporcional de players e leitura confortável em dispositivos móveis.
+- **Monorepo Otimizado para a Render (Ambiente Linux):** Estrutura de subdiretórios integrada onde o script de build compila o React e move os arquivos estáticos para o servidor Express via shell Linux (`mv`).
+
+---
+
+## 🗺️ Roadmap (Próximas Atualizações)
+
+- [ ] **Menu Flutuante de Configurações (UI Implementada / Em Desenvolvimento):** Já está presente na interface um botão flutuante em formato de bolha com ícone de engrenagem. Atualmente atua como elemento visual preparatório e receberá funcionalidades interativas (como temas, preferências de player e ajustes de acessibilidade) nas próximas versões.
 
 ---
 
 ## 📁 Estrutura de Pastas do Projeto
 
 ```text
-my-site-api-integration/   <-- Pasta Raiz (Inicie o Git aqui)
+My-platform-Cine-Anime/    <-- Pasta Raiz do Repositório
 ├── meu-front-anime/       <-- Frontend em React.js (Vite)
-└── API_IA/                <-- Servidor Backend em Node.js (Express & Socket.io)
-    ├── controllers/
-    ├── services/
-    ├── server.js
-    └── package.json
+├── API_IA/                <-- Servidor Backend em Node.js (Express & Socket.io)
+│   ├── controllers/
+│   ├── services/
+│   ├── server.js
+│   └── package.json
+└── package.json           <-- Configurações globais do repositório
 ```
 
 ---
@@ -41,68 +63,65 @@ my-site-api-integration/   <-- Pasta Raiz (Inicie o Git aqui)
 
 ### Backend (`API_IA`)
 - **Node.js** & **Express**
+- **CORS & Express Rate Limit** (Segurança e controle de tráfego)
 - **Socket.io** (Orquestração de WebSockets para o chat global)
 - **@google/genai** (Integração com Google Gemini API)
 - **Fetch API** (Consumo da API REST Jikan/MyAnimeList v4)
 
 ### Frontend (`meu-front-anime`)
-- **React.js** (Single Page Application hospedada no servidor)
+- **React.js** (Single Page Application servida pelo backend)
 - **Vite** (Build Tool de alta performance)
 - **Socket.io-Client** (Comunicação em tempo real)
-- **CSS3 Avançado** (Estética Cyberpunk/Sci-Fi com efeito Glassmorphism e Neon Glow)
-
----
-
-## 🧠 Engenharia de Resiliência: Como o Sistema reage a falhas?
-
-Para garantir uma experiência de usuário sem interrupções (*Zero-Downtime Feel*), o fluxo de recomendação foi blindado logicamente:
-
-1. O usuário faz uma pergunta no chat (ex: *"Quero ver um romance de escola"*).
-2. O sistema tenta buscar dados atualizados via API REST e processar via inteligência artificial.
-3. Se qualquer uma das conexões externas falhar por sobrecarga, a lógica limpa o texto, identifica as palavras-chave e entrega componentes com players de `/embed/` do YouTube funcionais e imagens indexadas anti-bloqueio.
+- **CSS3 Avançado & Media Queries** (Estética Cyberpunk/Sci-Fi com Glassmorphism, Neon Glow e responsividade mobile)
 
 ---
 
 ## 💻 Como Executar o Projeto Localmente
 
 ### Pré-requisitos
-- Node.js instalado
-- Uma API Key do Google Gemini (obtida no Google AI Studio)
+- **Node.js** instalado (v18+ recomendado)
+- Uma **API Key do Google Gemini** (gerada no Google AI Studio)
 
 ### Passos para Inicialização Unificada
 ```bash
-# Clone o repositório
-git clone https://github.com
+# 1. Clone o repositório
+git clone https://github.com/daniel-20px/My-platform-Cine-Anime
 
-# Acesse a pasta do backend onde fica o orquestrador de build
-cd my-site-api-integration/API_IA
+# 2. Acesse a pasta do backend onde fica o orquestrador de build
+cd My-platform-Cine-Anime/API_IA
 
-# Instale todas as dependências do servidor
+# 3. Instale as dependências do servidor
 npm install
 
-# Crie um arquivo .env dentro da pasta API_IA e adicione sua chave do Gemini
+# 4. Crie o arquivo .env na pasta API_IA com a chave da IA e a origem permitida no CORS
+cat << 'EOF' > .env
 GEMINI_API_KEY=sua_chave_aqui
+FRONTEND_URL=http://localhost:3000
+EOF
 
-# Execute o script de build unificado (Compila o React e move o conteúdo para o servidor)
+# 5. Execute o build unificado (Compila o React e move os arquivos para o servidor)
 npm run build
 
-# Inicie a aplicação Fullstack unificada
+# 6. Inicie a aplicação Fullstack
 npm start
 ```
-Acesse o endereço indicado no terminal (geralmente `http://localhost:3000`).
+Acesse o endereço exibido no terminal (geralmente `http://localhost:3000`).
 
 ---
 
 ## 🚀 Como Configurar o Deploy na Render
 
-Ao conectar o seu repositório do GitHub na plataforma **Render**, crie um **Web Service** e configure o painel com as seguintes opções exatas:
+Ao conectar o repositório do GitHub na plataforma **Render**, crie um **Web Service** e configure o painel com as seguintes opções:
 
 1. **Root Directory:** `API_IA`
 2. **Build Command:** `npm run build`
 3. **Start Command:** `npm start`
-4. **Environment Variables (Aba Advanced):** Adicione a chave `GEMINI_API_KEY` com o valor gerado no seu painel da Google AI Studio.
+4. **Environment Variables (Aba Advanced):**
+   - `GEMINI_API_KEY`: Sua chave gerada no Google AI Studio.
+   - `FRONTEND_URL`: `https://onrender.com`
 
 *(Nota: O servidor gerencia o provisionamento da porta via `process.env.PORT` de forma automática na nuvem).*
 
+
 ---
-Desenvolvido com foco em Integração de LLMs, Performance de Estados e Comunicação Real-time. 🎬🍿
+Desenvolvido por **Daniel** (com assistência de IA) — Foco em Integração de LLMs, Segurança de APIs e Comunicação Real-time. 🎬🍿

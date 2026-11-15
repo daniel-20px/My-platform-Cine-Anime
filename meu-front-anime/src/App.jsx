@@ -1,21 +1,21 @@
 import { useState, useEffect, useRef } from 'react';
 import { animesIniciais } from './services/catalog';
-// Seus serviços externos 
+//  serviços externos 
 import { buscarTrailerJikan, buscarRecomendacoesIA } from './services/animeApi';
-// Seus componentes isolados 
+// componentes isolados 
 import PlayerTrailer from './components/PlayerTrailer';
 import CardAnime from './components/CardAnime';
 import JanelaIA from './components/JanelaIA';
 import JanelaChat from './components/JanelaChat';
 import { socket } from './services/socket';
-
+import Menu from './components/Menu'
 import './App.css';
 
 
 
 
 export default function App() {
-  // 📦 Seus states (useState) declarados aqui antes das funções:
+  //  (useState) declarados 
   const [nomeUsuario, setNomeUsuario] = useState('Visitante');
   const [animeIdNoPlayer, setAnimeIdNoPlayer] = useState(null);
 
@@ -27,7 +27,7 @@ export default function App() {
   const [chatAberto, setChatAberto] = useState(false);
   const [mensagemChat, setMensagemChat] = useState('');
   const [historicoChat, setHistoricoChat] = useState([]); // 👈 Seu estado real é este!
- 
+  const [isopenMenu, setisopenMenu] = useState(false);
 
   const fimDoChatRef = useRef(null);
 
@@ -157,6 +157,33 @@ export default function App() {
   return (
     <div className="site-container">
       <div className="conteudo-site">
+       <div className="navbar-conteiner">
+  <button
+    className={`btn-Menu ${isopenMenu ? "open" : ""}`}
+    onClick={() => setisopenMenu((prev) => !prev)}
+    aria-label="Menu"
+  >
+    {/* Ícone da engrenagem */}
+    <svg
+      className="icone-engrenagem"
+      viewBox="0 0 24 24"
+      width="26"
+      height="26"
+      stroke="currentColor"
+      strokeWidth="2"
+      fill="none"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <circle cx="12" cy="12" r="3"></circle>
+      <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+    </svg>
+  </button>
+
+  {/* Função */}
+  {isopenMenu && <Menu fecharMenu={() => setisopenMenu(false)} />}
+</div>
+
         <h1>Bem-vindo à Cine-Anime🎬</h1>
         <p>Navegue pelo catálogo. Se precisar de uma indicação inteligente ou quiser interagir na sala global, use os botões flutuantes no canto inferior ID do player.</p>
         <p>Daniel-20px</p>

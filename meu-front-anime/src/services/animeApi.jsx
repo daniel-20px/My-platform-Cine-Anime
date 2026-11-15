@@ -1,4 +1,4 @@
-// src/services/animeApi.js
+
 const API_URL = import.meta.env.VITE_API_URL || window.location.origin;
 
 // 🍿 Busca o trailer de um anime específico no Jikan API
