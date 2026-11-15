@@ -785,8 +785,8 @@ h1 {
 
 .btn-Menu {
   position: fixed;
-  bottom: 10vh;
-  right: 8vh;
+  bottom: 85vh;
+  right: 3vh;
   width: 55px;
   height: 55px;
   border-radius: 50%;
@@ -833,7 +833,7 @@ h1 {
   padding: 24px 16px 20px 16px;
   z-index: 1000;
 
-  background-color: rgba(15, 23, 42, 0.82);
+  background-color: rgba(29, 49, 95, 0.82);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-radius: 26px;
